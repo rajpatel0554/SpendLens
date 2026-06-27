@@ -51,3 +51,6 @@ desktop.ini
 .idea/
 *.swp
 *.swo
+
+# Project Documents
+Document/
