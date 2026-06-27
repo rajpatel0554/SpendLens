@@ -1,0 +1,400 @@
+# MANAN PATEL – ML MODULE FINAL DELIVERABLE REPORT
+
+## Project Title
+
+SpendLens – Transaction Classification and Anomaly Detection System
+
+---
+
+# 1. Project Overview
+
+The objective of this module was to build a Machine Learning system capable of:
+
+* Automatically classifying bank transactions into predefined categories.
+* Detecting abnormal spending patterns using historical transaction behavior.
+* Exporting trained models for backend integration with FastAPI.
+
+---
+
+# 2. Technologies Used
+
+* Python
+* Pandas
+* NumPy
+* Scikit-Learn
+* Pickle
+* VS Code
+* Jupyter Notebook
+
+---
+
+# 3. Dataset Information
+
+Dataset Type:
+Bank Transaction Dataset
+
+Dataset Size:
+1000 Records
+
+Feature Used:
+Transaction Description
+
+Target Variable:
+Category
+
+Categories Included:
+
+* Food
+* Shopping
+* Entertainment
+* Transport
+* Bills
+* Healthcare
+* Insurance
+* Investment
+* Salary
+* Travel
+
+Category Distribution:
+
+| Category      | Count |
+| ------------- | ----- |
+| Shopping      | 134   |
+| Travel        | 110   |
+| Entertainment | 107   |
+| Bills         | 103   |
+| Investment    | 101   |
+| Salary        | 99    |
+| Insurance     | 98    |
+| Transport     | 91    |
+| Food          | 80    |
+| Healthcare    | 77    |
+
+The dataset is reasonably balanced and suitable for classification.
+
+---
+
+# 4. Data Preprocessing
+
+Before model training, transaction descriptions were cleaned and transformed.
+
+Steps Performed:
+
+### Step 1 – Convert Text to Lowercase
+
+Example:
+
+Before:
+SWIGGY ORD
+
+After:
+swiggy ord
+
+### Step 2 – Remove Special Characters
+
+Example:
+
+Before:
+ZOMATO PAYMENT #123
+
+After:
+zomato payment 123
+
+### Step 3 – Remove Extra Spaces
+
+Text was standardized to maintain consistency.
+
+### Step 4 – TF-IDF Vectorization
+
+Transaction descriptions were converted into numerical vectors using TF-IDF Vectorizer.
+
+Generated File:
+
+vectorizer.pkl
+
+---
+
+# 5. Model Training
+
+Two machine learning algorithms were trained and compared.
+
+## Model 1 – Naive Bayes
+
+Accuracy:
+
+100.00%
+
+Advantages:
+
+* Fast training
+* Excellent for text classification
+* Lightweight model
+
+---
+
+## Model 2 – Random Forest
+
+Accuracy:
+
+99.50%
+
+Advantages:
+
+* Strong classification capability
+* Handles complex relationships
+
+---
+
+# 6. Selected Model
+
+Selected Model:
+
+Multinomial Naive Bayes
+
+Reason:
+
+Naive Bayes achieved the highest accuracy score on the testing dataset and therefore was selected as the final production model.
+
+Final Accuracy:
+
+100.00%
+
+---
+
+# 7. Model Evaluation
+
+Train-Test Split:
+
+80% Training Data
+
+20% Testing Data
+
+Classification Results:
+
+| Model         | Accuracy |
+| ------------- | -------- |
+| Naive Bayes   | 100.00%  |
+| Random Forest | 99.50%   |
+
+The model successfully learned transaction-specific keywords and classification patterns.
+
+---
+
+# 8. Sample Predictions
+
+| Transaction Description | Predicted Category |
+| ----------------------- | ------------------ |
+| SWIGGY ORD              | Food               |
+| ZOMATO PAYMENT          | Food               |
+| AMAZON PAY              | Shopping           |
+| FLIPKART ORDER          | Shopping           |
+| NETFLIX                 | Entertainment      |
+| BOOKMYSHOW              | Entertainment      |
+| UBER TRIP               | Transport          |
+| OLA CAB                 | Transport          |
+| ELECTRICITY BILL        | Bills              |
+| MOBILE RECHARGE         | Bills              |
+| LIC PREMIUM             | Insurance          |
+| SIP DEBIT               | Investment         |
+| SAL CR                  | Salary             |
+| IRCTC BOOKING           | Travel             |
+
+The model correctly identified categories based on transaction descriptions.
+
+---
+
+# 9. Testing on Categorized Transaction Dataset
+
+The trained model was tested using categorized transaction records.
+
+Testing Process:
+
+1. Load model.pkl
+2. Load vectorizer.pkl
+3. Predict categories
+4. Compare predictions with actual labels
+
+Observed Accuracy:
+
+100.00%
+
+Sample Results:
+
+| Description | Actual        | Predicted     |
+| ----------- | ------------- | ------------- |
+| SIP DEBIT   | Investment    | Investment    |
+| NETFLIX     | Entertainment | Entertainment |
+| RAPIDO      | Transport     | Transport     |
+| SAL CR      | Salary        | Salary        |
+| LIC PREMIUM | Insurance     | Insurance     |
+
+Result:
+
+The classifier successfully predicted all tested transaction categories.
+
+---
+
+# 10. Model Export
+
+The final trained model and vectorizer were exported using Pickle.
+
+Generated Files:
+
+* model.pkl
+* vectorizer.pkl
+
+These files are ready for FastAPI integration.
+
+---
+
+# 11. Anomaly Detection Module
+
+Function Name:
+
+detect_anomalies(df)
+
+Objective:
+
+Identify unusual spending behavior by comparing current month spending with historical spending trends.
+
+---
+
+# 12. Anomaly Detection Logic
+
+Step 1:
+Group transactions by category and month.
+
+Step 2:
+Calculate total monthly spending.
+
+Step 3:
+Compute average spending of the previous three months.
+
+Step 4:
+Calculate spending ratio.
+
+Formula:
+
+Ratio = Current Month Spend ÷ Average Spend of Previous 3 Months
+
+Step 5:
+Flag anomaly if:
+
+Current Month Spend > 2 × Previous 3-Month Average
+
+Step 6:
+Generate a descriptive reason.
+
+Example:
+
+"Food spend is 3.25x your 3-month average"
+
+---
+
+# 13. Anomaly Detection Output
+
+Generated Columns:
+
+* category
+* month
+* current_spend
+* avg_last_3_months
+* transaction_count
+* ratio
+* reason
+
+Generated File:
+
+anomalies.csv
+
+Example:
+
+Category:
+Railway
+
+Month:
+2024-11
+
+Current Spend:
+108,820.49
+
+Average Spend:
+27,622.79
+
+Ratio:
+3.94x
+
+Reason:
+
+Railway spend is 3.94x your 3-month average
+
+---
+
+# 14. Deliverables Completed
+
+Transaction Classification Model
+
+✓ Completed
+
+TF-IDF Vectorizer
+
+✓ Completed
+
+Model Export
+
+✓ Completed
+
+Model Testing
+
+✓ Completed
+
+Accuracy Evaluation
+
+✓ Completed
+
+Anomaly Detection Module
+
+✓ Completed
+
+Anomaly Report Generation
+
+✓ Completed
+
+FastAPI Ready Files
+
+✓ Completed
+
+---
+
+# 15. Final Files Submitted
+
+* model.pkl
+* vectorizer.pkl
+* train_model.py
+* test_model.py
+* anomaly_detection.py
+* anomalies.csv
+* Accuracy Report
+* Model Testing Report
+* Final Deliverable Report
+
+---
+
+# 16. Conclusion
+
+The Machine Learning module for SpendLens was successfully developed and tested.
+
+Achievements:
+
+* Built an automated transaction classification system.
+* Achieved 100.00% classification accuracy using Naive Bayes.
+* Exported production-ready model files.
+* Developed an anomaly detection system using historical spending analysis.
+* Generated anomaly reports with detailed explanations.
+* Prepared all deliverables for FastAPI backend integration.
+
+Project Status:
+
+COMPLETED SUCCESSFULLY
+
+Ready for FastAPI Integration and Deployment.

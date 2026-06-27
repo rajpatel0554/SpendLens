@@ -1,0 +1,35 @@
+MANAN — ML Engineer
+Responsible for: Training the transaction classifier, building anomaly detection, exporting model for backend
+Tools to use: Python, scikit-learn, pandas, numpy, Jupyter Notebook, pickle
+Phase 1 — Research & Data Prep (Days 1–3)
+Task 1 — Find a Training Dataset Go to Kaggle.com and search "bank transaction categorization dataset". Download one that has transaction descriptions and category labels. Good example: a dataset with columns like description = "Swiggy Order" and category = "Food". You need at least 500 labelled rows.
+Task 2 — Explore the Data Open in Jupyter Notebook. Check: How many categories are there? Are categories balanced (equal rows per category) or imbalanced? Plot a bar chart of category counts. Write your findings in a notebook cell as markdown notes.
+Phase 2 — Train the Model (Days 4–8)
+Task 3 — Text Preprocessing Transaction descriptions are text. ML models need numbers. Steps:
+Lowercase everything ("Zomato Order" → "zomato order")
+Remove special characters
+Apply TF-IDF Vectorizer — this converts words into a matrix of numbers
+Save the fitted vectorizer as vectorizer.pkl — Raj needs this too, not just the model
+Task 4 — Train the Classifier Split data: 80% for training, 20% for testing using train_test_split. Train two models and compare:
+Naive Bayes (fast, good for text — try this first)
+Random Forest (slower but often more accurate)
+Print accuracy score for both. Use the better one.
+Task 5 — Export the Model Save your best model using pickle:
+import pickle
+pickle.dump(model, open('model.pkl', 'wb'))
+pickle.dump(vectorizer, open('vectorizer.pkl', 'wb'))
+Share both files with Raj by Day 8. He needs to load them into FastAPI.
+Task 6 — Test on Real Data Take Vaidehi's cleaned transactions. Run your model on them. Manually check: does "Zomato" → Food? Does "Uber" → Transport? Does "Amazon" → Shopping? If accuracy is below 70%, add more training data and retrain.
+Phase 3 — Anomaly Detection (Days 9–12)
+Task 7 — Anomaly Detection Function Write a Python function called detect_anomalies(df). Logic:
+Group transactions by category
+For each category, calculate the average spend over the last 3 months
+If this month's spend in any category is more than 2× the average, flag it
+Return a DataFrame of only the flagged transactions with a reason column explaining why
+Example reason: "Dining spend is 2.4× your 3-month average"
+Task 8 — Work with Raj on Integration Send Raj your model.pkl, vectorizer.pkl, and detect_anomalies function. Sit together (or on a call) and test the /predict endpoint with sample inputs. Make sure predictions come back correctly and the anomaly function runs without errors inside FastAPI.
+✅ Manan's Final Deliverables:
+model.pkl + vectorizer.pkl files → Day 8
+Anomaly detection function → Day 12
+Accuracy report (tested on Vaidehi's data) → Day 11
+Model retrained if accuracy < 70% → Day 10

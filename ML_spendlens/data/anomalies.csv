@@ -1,0 +1,4 @@
+category,month,current_spend,avg_last_3_months,transaction_count,ratio,status,reason
+Railway,2024-11,108820.49,27622.79,3,3.94x,ANOMALY,Railway spend is 3.94x your 3-month average
+Railway,2025-09,19382.53,7735.37,1,2.51x,ANOMALY,Railway spend is 2.51x your 3-month average
+Railway,2025-08,11177.4,4744.15,1,2.36x,ANOMALY,Railway spend is 2.36x your 3-month average

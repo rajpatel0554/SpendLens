@@ -1,0 +1,31 @@
+PRATHA — UI/UX Designer & Frontend Developer
+Responsible for: All visual design, React frontend, charts, responsive UI
+Tools to use: Figma, React.js, Recharts, Tailwind CSS, Axios, React Router, VS Code
+Phase 1 — Design & Setup (Days 1–3)
+Task 1 — Figma Wireframes Design all 5 screens in Figma before writing any code:
+Login / Register page
+Dashboard (main analytics page)
+Transactions table page
+Anomalies page
+Reports & download page
+Share Figma link with Sarthak and Raj for feedback before moving to code.
+Task 2 — Design System Define in Figma: color palette (dark background like the mockup), font sizes (heading, body, small), spacing rules, button styles, card component style, badge colors for each category (green = Food, blue = Transport, etc.).
+Task 3 — React Project Setup Run npx create-react-app spendlens-frontend. Install: Recharts (charts), Axios (API calls), React Router (page navigation), Tailwind CSS (styling). Set up folder structure: /components, /pages, /services, /hooks.
+Phase 2 — Core UI Build (Days 4–8)
+Task 4 — Dashboard Page Build the main dashboard exactly like the mockup in your PDF:
+4 KPI cards at top: Total Spent, Largest Category, Anomalies Flagged, Savings Potential
+Bar chart (monthly trend) using Recharts
+Horizontal progress bars for spending by category
+ML alert banner at the top when anomalies are detected
+Task 5 — Transactions Page Table with columns: Date, Description, Amount, Category (colored badge), Anomaly Flag. Add filter dropdowns (by category, by date range). Add a search bar that filters by description text.
+Task 6 — File Upload Component Drag-and-drop box for CSV/PDF upload. Show a progress bar while file is uploading. Show "Processing..." spinner while Raj's backend parses it. Show success toast ("47 transactions imported!") or error message.
+Task 7 — Connect Everything to Raj's API Use Axios to call all of Raj's backend endpoints. Store JWT token in localStorage after login. Add the token to every API request header. If token expires, automatically redirect to login page.
+Phase 3 — Polish & Remaining Pages (Days 9–16)
+Task 8 — Anomaly Alert Component Yellow warning banner at top of dashboard (like in the mockup PDF). Dedicated Anomalies page showing all flagged transactions highlighted in red with the reason why they were flagged.
+Task 9 — Reports Page Show this month's summary statistics. A "Download PDF Report" button that calls Raj's /report/monthly endpoint and downloads the file automatically.
+Task 10 — Final Polish Add loading skeleton screens (gray placeholder boxes while data loads). Add empty states ("No transactions yet — upload your first statement!"). Make fully responsive for mobile screens. Add smooth page transition animations.
+✅ Pratha's Final Deliverables:
+All 5 screens designed in Figma → Day 3
+All 5 pages coded and connected to backend → Day 14
+Responsive mobile UI → Day 15
+Frontend deployed on Vercel → Day 17

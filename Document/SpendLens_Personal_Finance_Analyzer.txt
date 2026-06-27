@@ -1,0 +1,40 @@
+SpendLens — Full Project Breakdown
+What it does (core features)
+The app has 5 main feature modules:
+Upload & Parse — user uploads a bank statement (CSV/PDF), the system cleans and structures the data
+ML Auto-Categorizer — model classifies each transaction into Food, Transport, Shopping, etc.
+Anomaly Detector — flags unusual spends (e.g. 3× your average on dining this week)
+Analytics Dashboard — charts, trends, monthly summaries (what you see in the mockup above)
+Insight Report Generator — downloadable monthly PDF report with AI-written summary
+Tech stack
+Layer
+Technology
+Who handles it
+Frontend
+React.js + Recharts
+UI/UX member
+Backend / API
+FastAPI (Python)
+You
+ML Model
+scikit-learn (Naive Bayes / Random Forest)
+ML member
+Data Cleaning
+pandas + numpy
+Data analyst
+Database
+SQLite (dev) → PostgreSQL (deploy)
+You
+Auth
+JWT tokens
+You
+PDF parsing
+pdfplumber / camelot
+Data analyst
+Deployment
+Render.com or Railway (free tier)
+You + Team lead
+SRS / Docs
+Google Docs
+SRS writer
+A mockup of what SpendLens will actually look like so your UI/UX member has a concrete starting point. This is only Demo not actual Frontend.
