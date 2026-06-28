@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #031427;
+    color: #d3e4fe;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+.glass-surface {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-surface-elevated {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(73, 75, 214, 0.15);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(192, 193, 255, 0.3);
+  box-shadow: 0px 4px 20px rgba(192, 193, 255, 0.1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #031427;
+}
+::-webkit-scrollbar-thumb {
+  background: #26364a;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #464554;
+}
+
+/* Ring Progress for Circular Charts */
+.ring-progress {
+  stroke-dasharray: 440; /* 2 * pi * r = 2 * 3.14 * 70 = 439.6 */
+  stroke-dashoffset: calc(440 - (440 * var(--percent)) / 100);
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.ring-progress-sm {
+  stroke-dasharray: 201; /* 2 * pi * r = 2 * 3.14 * 32 = 200.96 */
+  stroke-dashoffset: calc(201 - (201 * var(--percent)) / 100);
+  transition: stroke-dashoffset 1s ease-in-out;
+}
