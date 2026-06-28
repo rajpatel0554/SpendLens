@@ -188,49 +188,63 @@ const Budgeting = ({ uploadTrigger }) => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-lg">
             {data.category_progress && data.category_progress.length > 0 ? (
-              data.category_progress.map((item) => (
-                <div key={item.category} className="flex flex-col items-center gap-md p-md rounded-xl hover:bg-white/5 transition-colors cursor-default">
-                  <div className="relative w-20 h-20">
-                    <svg className="w-full h-full rotate-[-90deg]">
-                      <circle className="text-surface-container-highest" cx="40" cy="40" fill="transparent" r="32" stroke="currentColor" strokeWidth="6"></circle>
-                      <circle
-                        className={`ring-progress-sm ${
-                          item.percentage >= 90
-                            ? 'text-tertiary'
-                            : item.percentage >= 70
-                            ? 'text-primary'
-                            : 'text-secondary'
-                        }`}
-                        cx="40"
-                        cy="40"
-                        fill="transparent"
-                        r="32"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeWidth="6"
-                        style={{ '--percent': Math.min(item.percentage, 100) }}
-                      ></circle>
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center text-on-surface-variant">
-                      <span className="material-symbols-outlined">
-                        {item.category === 'Shopping'
-                          ? 'shopping_bag'
-                          : item.category === 'Bill Payment'
-                          ? 'receipt_long'
-                          : item.category === 'ATM'
-                          ? 'atm'
-                          : 'payments'}
-                      </span>
+              data.category_progress.map((item) => {
+                const limit = {
+                  'Shopping': 20000,
+                  'Bill Payment': 15000,
+                  'ATM': 10000,
+                  'Railway': 8000,
+                  'Cash Deposit': 50000,
+                  'Others': 15000
+                }[item.category] || 10000;
+                
+                const spent = item.amount || 0;
+                const percentage = Math.min(Math.round((spent / limit) * 100), 100);
+                
+                return (
+                  <div key={item.category} className="flex flex-col items-center gap-md p-md rounded-xl hover:bg-white/5 transition-colors cursor-default">
+                    <div className="relative w-20 h-20">
+                      <svg className="w-full h-full rotate-[-90deg]">
+                        <circle className="text-surface-container-highest" cx="40" cy="40" fill="transparent" r="32" stroke="currentColor" strokeWidth="6"></circle>
+                        <circle
+                          className={`ring-progress-sm ${
+                            percentage >= 90
+                              ? 'text-tertiary'
+                              : percentage >= 70
+                              ? 'text-primary'
+                              : 'text-secondary'
+                          }`}
+                          cx="40"
+                          cy="40"
+                          fill="transparent"
+                          r="32"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeWidth="6"
+                          style={{ '--percent': percentage }}
+                        ></circle>
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center text-on-surface-variant">
+                        <span className="material-symbols-outlined">
+                          {item.category === 'Shopping'
+                            ? 'shopping_bag'
+                            : item.category === 'Bill Payment'
+                            ? 'receipt_long'
+                            : item.category === 'ATM'
+                            ? 'atm'
+                            : 'payments'}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p className="font-label-md text-on-surface truncate max-w-[120px]">{item.category}</p>
+                      <p className="font-mono-data text-label-sm text-on-surface-variant">
+                        ₹{spent.toLocaleString(undefined, { maximumFractionDigits: 0 })} / ₹{limit >= 1000 ? `${(limit / 1000).toFixed(0)}k` : limit}
+                      </p>
                     </div>
                   </div>
-                  <div className="text-center">
-                    <p className="font-label-md text-on-surface truncate max-w-[120px]">{item.category}</p>
-                    <p className="font-mono-data text-label-sm text-on-surface-variant">
-                      ₹{item.spent.toFixed(0)} / ₹{item.limit.toFixed(0)}
-                    </p>
-                  </div>
-                </div>
-              ))
+                );
+              })
             ) : (
               <p className="text-sm text-on-surface-variant col-span-full text-center py-4">No budget tracking data available.</p>
             )}
