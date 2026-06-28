@@ -87,19 +87,28 @@ def get_analytics_summary(
             )
         )
         
-    # 3. Monthly Trends
-    df_expenses["month"] = pd.to_datetime(df_expenses["date"]).dt.strftime("%Y-%m")
-    monthly_summary = df_expenses.groupby("month")["abs_amount"].sum().reset_index()
-    monthly_summary = monthly_summary.sort_values(by="month")
+    # 3. Monthly Trends (Income vs Expenses)
+    df["month"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m")
     
     monthly_trends = []
-    for _, row in monthly_summary.iterrows():
-        monthly_trends.append(
-            MonthlyTrend(
-                month=str(row["month"]),
-                amount=round(float(row["abs_amount"]), 2)
+    if not df.empty:
+        months = sorted(df["month"].unique())
+        for m in months:
+            df_m = df[df["month"] == m]
+            
+            df_m_income = df_m[df_m["amount"] > 0]
+            m_income = float(df_m_income["amount"].sum()) if not df_m_income.empty else 0.0
+            
+            df_m_expense = df_m[df_m["amount"] < 0]
+            m_expense = float(df_m_expense["amount"].abs().sum()) if not df_m_expense.empty else 0.0
+            
+            monthly_trends.append(
+                MonthlyTrend(
+                    month=m,
+                    income=round(m_income, 2),
+                    expense=round(m_expense, 2)
+                )
             )
-        )
         
     # 4. Savings Potential (Sum of anomalous excess spends, or default to 15% of total spent)
     # Let's calculate the savings potential: if there are anomalies, find the excess spend

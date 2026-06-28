@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { AreaChart, Area, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 
 const Budgeting = ({ uploadTrigger }) => {
   const [data, setData] = useState(null);
@@ -78,7 +78,7 @@ const Budgeting = ({ uploadTrigger }) => {
           {/* Area Chart using Recharts */}
           <div className="flex-1 min-h-[250px] relative">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data.monthly_trends || []}>
+              <AreaChart data={data.monthly_trends || []} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="incomeGrad" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#4edea3" stopOpacity={0.3} />
@@ -89,6 +89,15 @@ const Budgeting = ({ uploadTrigger }) => {
                     <stop offset="95%" stopColor="#c0c1ff" stopOpacity={0} />
                   </linearGradient>
                 </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                <XAxis dataKey="month" stroke="#908fa0" fontSize={10} tickLine={false} axisLine={false} dy={8} />
+                <YAxis stroke="#908fa0" fontSize={10} tickLine={false} axisLine={false} tickFormatter={(v) => '₹' + (v >= 1000 ? (v/1000).toFixed(0) + 'k' : v)} dx={-8} />
+                <Tooltip 
+                  contentStyle={{ background: '#102034', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                  labelStyle={{ color: '#908fa0', fontWeight: 'bold' }}
+                  itemStyle={{ color: '#d3e4fe' }}
+                  formatter={(value, name) => ['₹' + value.toLocaleString(), name === 'income' ? 'Income' : 'Expenses']}
+                />
                 <Area
                   type="monotone"
                   dataKey="income"
@@ -163,7 +172,7 @@ const Budgeting = ({ uploadTrigger }) => {
                 <div className="relative w-40 h-40">
                   <svg className="w-full h-full rotate-[-90deg]">
                     <circle className="text-surface-container-highest" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
-                    <circle className="text-primary ring-progress" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" strokeLinecap="round" strokeWidth="12" style={{ '--percent': percent }}></circle>
+                    <circle className="text-primary ring-progress" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" strokeLinecap="round" strokeWidth="12" style={{ '--percent': Math.max(0, percent) }}></circle>
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <span className="font-headline-lg text-primary">{percent}%</span>

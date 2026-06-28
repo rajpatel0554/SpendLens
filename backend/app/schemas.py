@@ -70,7 +70,8 @@ class CategorySpend(BaseModel):
 
 class MonthlyTrend(BaseModel):
     month: str
-    amount: float
+    income: float
+    expense: float
 
 class AnalyticsSummary(BaseModel):
     total_spent: float
