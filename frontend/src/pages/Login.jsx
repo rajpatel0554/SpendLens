@@ -35,7 +35,36 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-background text-on-background lg:grid lg:grid-cols-12 relative overflow-hidden" style={{ width: '100%', minHeight: '100vh' }}>
-      {/* Left side (Form) - 5 cols on desktop */}
+      {/* Left side (Hero Image Showcase) - 7 cols on desktop */}
+      <div className="hidden lg:block lg:col-span-7 relative h-screen overflow-hidden">
+        <img 
+          src="/login_hero.png" 
+          alt="Wealth Intelligence" 
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Dark Glass Overlay with Branding Text */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-tr from-background via-background/60 to-transparent p-xl z-10" 
+          style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', boxSizing: 'border-box' }}
+        >
+          <div 
+            className="glass-surface p-lg rounded-3xl border border-white/10 backdrop-blur-md mb-8"
+            style={{ width: '90%', maxWidth: '448px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '16px', boxSizing: 'border-box' }}
+          >
+            <span className="font-label-md px-sm py-xs bg-primary-container/20 text-primary rounded-lg uppercase tracking-wider">
+              AI Wealth Management
+            </span>
+            <h1 className="font-display-lg text-[36px] font-black text-on-surface mt-4 leading-tight">
+              Personal Finance Intelligence
+            </h1>
+            <p className="font-body-md text-on-surface-variant mt-2 text-lg">
+              Analyze bank statements, track category budgets, and detect transaction anomalies in real-time with state-of-the-art ML modeling.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Right side (Form) - 5 cols on desktop */}
       <div className="col-span-12 lg:col-span-5 flex items-center justify-center p-lg relative min-h-screen z-10">
         {/* Background Decorative Blurs for mobile */}
         <div className="absolute -left-20 -top-20 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none lg:hidden"></div>
@@ -142,35 +171,6 @@ const Login = () => {
               >
                 {isSignUp ? 'Sign In' : 'Sign Up'}
               </button>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Right side (Hero Image Showcase) - 7 cols on desktop */}
-      <div className="hidden lg:block lg:col-span-7 relative h-screen overflow-hidden">
-        <img 
-          src="/login_hero.png" 
-          alt="Wealth Intelligence" 
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        {/* Dark Glass Overlay with Branding Text */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-tr from-background via-background/60 to-transparent p-xl z-10" 
-          style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', boxSizing: 'border-box' }}
-        >
-          <div 
-            className="glass-surface p-lg rounded-3xl border border-white/10 backdrop-blur-md mb-8"
-            style={{ width: '90%', maxWidth: '448px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '16px', boxSizing: 'border-box' }}
-          >
-            <span className="font-label-md px-sm py-xs bg-primary-container/20 text-primary rounded-lg uppercase tracking-wider">
-              AI Wealth Management
-            </span>
-            <h1 className="font-display-lg text-[36px] font-black text-on-surface mt-4 leading-tight">
-              Personal Finance Intelligence
-            </h1>
-            <p className="font-body-md text-on-surface-variant mt-2 text-lg">
-              Analyze bank statements, track category budgets, and detect transaction anomalies in real-time with state-of-the-art ML modeling.
             </p>
           </div>
         </div>
