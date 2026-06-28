@@ -6,6 +6,9 @@ const Budgeting = ({ uploadTrigger }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [targetSavings, setTargetSavings] = useState(50000);
+  const [isEditing, setIsEditing] = useState(false);
+  const [inputVal, setInputVal] = useState("50000");
 
   useEffect(() => {
     const fetchSummary = async () => {
@@ -108,34 +111,75 @@ const Budgeting = ({ uploadTrigger }) => {
         </div>
 
         {/* Goal Tracker (4 cols) */}
-        <div className="col-span-12 lg:col-span-4 glass-card rounded-xl p-lg flex flex-col justify-between relative overflow-hidden">
-          <div className="relative z-10">
-            <div className="flex justify-between items-center mb-md">
-              <span className="font-label-md px-sm py-xs bg-primary-container/20 text-primary rounded-lg">Annual Goal</span>
-              <span className="material-symbols-outlined text-primary">swap_horiz</span>
-            </div>
-            <h3 className="font-headline-md text-on-surface">Savings Fund</h3>
-            <p className="font-body-md text-on-surface-variant mt-xs">Target: $50,000</p>
-          </div>
-          <div className="relative z-10 py-xl flex flex-col items-center">
-            <div className="relative w-40 h-40">
-              <svg className="w-full h-full rotate-[-90deg]">
-                <circle className="text-surface-container-highest" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" strokeWidth="12"></circle>
-                <circle className="text-primary ring-progress" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" strokeLinecap="round" strokeWidth="12" style={{ '--percent': 68 }}></circle>
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="font-headline-lg text-primary">68%</span>
-                <span className="font-label-sm text-on-surface-variant">of target</span>
+        {(() => {
+          const netSavings = data.net_savings || 0;
+          const percent = targetSavings > 0 ? Math.min(Math.round((netSavings / targetSavings) * 100), 100) : 0;
+          return (
+            <div className="col-span-12 lg:col-span-4 glass-card rounded-xl p-lg flex flex-col justify-between relative overflow-hidden">
+              <div className="relative z-10">
+                <div className="flex justify-between items-center mb-md">
+                  <span className="font-label-md px-sm py-xs bg-primary-container/20 text-primary rounded-lg">Annual Goal</span>
+                  <span className="material-symbols-outlined text-primary">swap_horiz</span>
+                </div>
+                <h3 className="font-headline-md text-on-surface">Savings Fund</h3>
+                {isEditing ? (
+                  <div className="flex items-center gap-xs mt-xs">
+                    <span className="text-on-surface-variant text-sm">Target: $</span>
+                    <input
+                      type="number"
+                      value={inputVal}
+                      onChange={(e) => setInputVal(e.target.value)}
+                      onBlur={() => {
+                        const val = parseFloat(inputVal);
+                        if (!isNaN(val) && val > 0) {
+                          setTargetSavings(val);
+                        }
+                        setIsEditing(false);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          const val = parseFloat(inputVal);
+                          if (!isNaN(val) && val > 0) {
+                            setTargetSavings(val);
+                          }
+                          setIsEditing(false);
+                        }
+                      }}
+                      autoFocus
+                      className="bg-surface-container-high border border-primary/40 rounded px-2 py-0.5 text-xs text-on-surface w-24 outline-none focus:ring-1 focus:ring-primary"
+                    />
+                  </div>
+                ) : (
+                  <p
+                    onClick={() => setIsEditing(true)}
+                    className="font-body-md text-on-surface-variant mt-xs cursor-pointer hover:text-primary transition-colors flex items-center gap-xs"
+                  >
+                    Target: ${targetSavings.toLocaleString()}
+                    <span className="material-symbols-outlined text-xs">edit</span>
+                  </p>
+                )}
+              </div>
+              <div className="relative z-10 py-xl flex flex-col items-center">
+                <div className="relative w-40 h-40">
+                  <svg className="w-full h-full rotate-[-90deg]">
+                    <circle className="text-surface-container-highest" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
+                    <circle className="text-primary ring-progress" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" strokeLinecap="round" strokeWidth="12" style={{ '--percent': percent }}></circle>
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <span className="font-headline-lg text-primary">{percent}%</span>
+                    <span className="font-label-sm text-on-surface-variant">of target</span>
+                  </div>
+                </div>
+              </div>
+              <div className="relative z-10 flex justify-between items-center">
+                <div>
+                  <p className="font-mono-data text-headline-md text-on-surface">${netSavings.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                  <p className="font-label-sm text-secondary">Active Savings</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="relative z-10 flex justify-between items-center">
-            <div>
-              <p className="font-mono-data text-headline-md text-on-surface">${((data.net_savings || 0)).toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
-              <p className="font-label-sm text-secondary">Active Savings</p>
-            </div>
-          </div>
-        </div>
+          );
+        })()}
 
         {/* Category Progress Rings (12 cols) */}
         <div className="col-span-12 glass-card rounded-xl p-lg">
