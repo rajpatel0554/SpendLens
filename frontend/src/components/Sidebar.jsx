@@ -5,6 +5,28 @@ import { useAuth } from '../context/AuthContext';
 const Sidebar = ({ onOpenUpload }) => {
   const { user, logout } = useAuth();
 
+  // Helper to extract a friendly display name from the user's email
+  const getDisplayName = () => {
+    if (user?.name) return user.name;
+    if (!user?.email) return 'User';
+    
+    const parts = user.email.split('@')[0].split(/[\._\-]/);
+    const nameParts = parts
+      .map((p) => p.replace(/\d+/g, '').trim())
+      .filter((p) => p.length > 0);
+      
+    if (nameParts.length === 0) {
+      return user.email.split('@')[0];
+    }
+    
+    return nameParts
+      .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+      .join(' ');
+  };
+
+  const displayName = getDisplayName();
+  const displayInitial = displayName.charAt(0).toUpperCase();
+
   const navItems = [
     { name: 'Dashboard', path: '/', icon: 'dashboard' },
     { name: 'Transactions', path: '/transactions', icon: 'receipt_long' },
@@ -56,10 +78,10 @@ const Sidebar = ({ onOpenUpload }) => {
 
         <div className="flex items-center gap-3 px-2 py-3 mb-4">
           <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary uppercase border border-primary/20">
-            {user?.name?.charAt(0) || 'U'}
+            {displayInitial}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-label-md text-label-md text-on-surface truncate font-semibold">{user?.name || 'User'}</p>
+            <p className="font-label-md text-label-md text-on-surface truncate font-semibold">{displayName}</p>
             <p className="text-[10px] text-on-surface-variant truncate">{user?.email || 'Premium Plan'}</p>
           </div>
         </div>
