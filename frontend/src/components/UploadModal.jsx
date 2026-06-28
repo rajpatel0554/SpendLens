@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 
@@ -59,9 +60,9 @@ const UploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
 
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-lg bg-background/80 backdrop-blur-sm">
-      <div className="w-full max-w-md glass-surface-elevated rounded-3xl p-lg flex flex-col gap-md relative">
+      <div className="w-[90vw] max-w-md glass-surface-elevated rounded-3xl p-lg flex flex-col gap-md relative shrink-0">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -144,7 +145,8 @@ const UploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
