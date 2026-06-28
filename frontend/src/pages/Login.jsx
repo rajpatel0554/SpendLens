@@ -148,15 +148,15 @@ const Login = () => {
       </div>
 
       {/* Right side (Hero Image Showcase) - 7 cols on desktop */}
-      <div className="hidden lg:flex lg:col-span-7 relative h-screen overflow-hidden">
+      <div className="hidden lg:block lg:col-span-7 relative h-screen overflow-hidden">
         <img 
           src="/login_hero.png" 
           alt="Wealth Intelligence" 
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Dark Glass Overlay with Branding Text */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-background via-background/60 to-transparent flex flex-col justify-end p-xl z-10">
-          <div className="max-w-lg glass-surface p-lg rounded-3xl border border-white/10 backdrop-blur-md mb-8">
+        <div className="absolute inset-0 bg-gradient-to-tr from-background via-background/60 to-transparent flex flex-col justify-end p-xl z-10" style={{ width: '100%', height: '100%' }}>
+          <div className="w-[90%] max-w-md glass-surface p-lg rounded-3xl border border-white/10 backdrop-blur-md mb-8 shrink-0">
             <span className="font-label-md px-sm py-xs bg-primary-container/20 text-primary rounded-lg uppercase tracking-wider">
               AI Wealth Management
             </span>
