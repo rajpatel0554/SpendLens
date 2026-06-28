@@ -34,26 +34,16 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-background text-on-surface grid grid-cols-1 md:grid-cols-2">
-      {/* Left Panel - Hero Image (desktop only) */}
-      <div className="relative hidden md:block h-full w-full overflow-hidden">
-        <img 
-          alt="Wealth Management Visualization" 
-          className="absolute inset-0 w-full h-full object-cover" 
-          src="/screen.png"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/20 pointer-events-none"></div>
-      </div>
-
-      {/* Right Panel - Login Form */}
-      <div className="flex flex-col items-center justify-center p-xl relative min-h-screen">
-        {/* Background Decorative Blurs */}
-        <div className="absolute -left-20 -top-20 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
-        <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-secondary/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+    <div className="min-h-screen bg-background text-on-background lg:grid lg:grid-cols-12 relative overflow-hidden" style={{ width: '100%', minHeight: '100vh' }}>
+      {/* Left side (Form) - 5 cols on desktop */}
+      <div className="col-span-12 lg:col-span-5 flex items-center justify-center p-lg relative min-h-screen z-10">
+        {/* Background Decorative Blurs for mobile */}
+        <div className="absolute -left-20 -top-20 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none lg:hidden"></div>
+        <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-secondary/10 rounded-full blur-[100px] pointer-events-none lg:hidden"></div>
 
         <div 
-          className="glass-surface-elevated rounded-3xl p-lg z-10 flex flex-col gap-lg"
-          style={{ width: '90vw', maxWidth: '440px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '24px', boxSizing: 'border-box' }}
+          className="glass-surface-elevated rounded-3xl p-lg flex flex-col gap-lg relative"
+          style={{ width: '90vw', maxWidth: '400px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '24px', boxSizing: 'border-box' }}
         >
           {/* Brand Header */}
           <div className="flex flex-col items-center text-center">
@@ -63,22 +53,18 @@ const Login = () => {
               </span>
             </div>
             <h2 className="font-headline-lg text-headline-lg font-black text-primary">SpendLens</h2>
-            <p className="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase mt-1">
-              Personal Finance Intelligence
-            </p>
+            <p className="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mt-1">Wealth Management</p>
           </div>
 
-          {/* Title */}
-          <div className="text-center">
+          <div className="flex flex-col text-center">
             <h3 className="font-headline-md text-headline-md text-on-surface">
               {isSignUp ? 'Create Account' : 'Welcome Back'}
             </h3>
             <p className="font-body-md text-body-md text-on-surface-variant mt-1">
-              {isSignUp ? 'Get started on your wealth management journey' : 'Sign in to access your dashboard'}
+              {isSignUp ? 'Sign up to start tracking your wealth' : 'Sign in to access your dashboard'}
             </p>
           </div>
 
-          {/* Error Alert */}
           {error && (
             <div className="bg-error-container/20 border border-error/40 text-error rounded-xl p-md text-label-md flex items-center gap-2">
               <span className="material-symbols-outlined text-sm">warning</span>
@@ -86,42 +72,41 @@ const Login = () => {
             </div>
           )}
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="flex flex-col gap-md">
             {isSignUp && (
               <div className="flex flex-col gap-xs">
-                <label className="font-label-md text-label-md text-on-surface">Full Name</label>
+                <label className="font-label-md text-on-surface-variant">Full Name</label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="bg-surface-container-low border border-outline-variant/30 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface w-full transition-all"
+                  className="bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none w-full transition-all"
                   placeholder="John Doe"
                 />
               </div>
             )}
 
             <div className="flex flex-col gap-xs">
-              <label className="font-label-md text-label-md text-on-surface">Email Address</label>
+              <label className="font-label-md text-on-surface-variant">Email Address</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-surface-container-low border border-outline-variant/30 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface w-full transition-all"
-                placeholder="name@example.com"
+                className="bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none w-full transition-all"
+                placeholder="you@example.com"
               />
             </div>
 
             <div className="flex flex-col gap-xs">
-              <label className="font-label-md text-label-md text-on-surface">Password</label>
+              <label className="font-label-md text-on-surface-variant">Password</label>
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="bg-surface-container-low border border-outline-variant/30 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface w-full transition-all"
+                className="bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none w-full transition-all"
                 placeholder="••••••••"
               />
             </div>
@@ -129,7 +114,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-primary py-3.5 px-4 rounded-xl text-on-primary font-bold text-label-md flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-primary/20 mt-2"
+              className="bg-primary text-on-primary font-bold py-3.5 px-4 rounded-xl text-label-md hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-2 disabled:opacity-50"
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-on-primary border-t-transparent rounded-full animate-spin"></div>
@@ -144,19 +129,42 @@ const Login = () => {
             </button>
           </form>
 
-          {/* Toggle Mode */}
-          <div className="text-center">
-            <p className="font-label-md text-on-surface-variant">
-              {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
+          <div className="text-center mt-2">
+            <p className="font-body-md text-on-surface-variant">
+              {isSignUp ? 'Already have an account? ' : "Don't have an account? "}
               <button
+                type="button"
                 onClick={() => {
                   setIsSignUp(!isSignUp);
                   setError('');
                 }}
-                className="text-primary hover:underline font-bold focus:outline-none"
+                className="text-primary font-bold hover:underline"
               >
-                {isSignUp ? 'Sign In' : 'Create One'}
+                {isSignUp ? 'Sign In' : 'Sign Up'}
               </button>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Right side (Hero Image Showcase) - 7 cols on desktop */}
+      <div className="hidden lg:flex lg:col-span-7 relative h-screen overflow-hidden">
+        <img 
+          src="/login_hero.png" 
+          alt="Wealth Intelligence" 
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Dark Glass Overlay with Branding Text */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-background via-background/60 to-transparent flex flex-col justify-end p-xl z-10">
+          <div className="max-w-lg glass-surface p-lg rounded-3xl border border-white/10 backdrop-blur-md mb-8">
+            <span className="font-label-md px-sm py-xs bg-primary-container/20 text-primary rounded-lg uppercase tracking-wider">
+              AI Wealth Management
+            </span>
+            <h1 className="font-display-lg text-[36px] font-black text-on-surface mt-4 leading-tight">
+              Personal Finance Intelligence
+            </h1>
+            <p className="font-body-md text-on-surface-variant mt-2 text-lg">
+              Analyze bank statements, track category budgets, and detect transaction anomalies in real-time with state-of-the-art ML modeling.
             </p>
           </div>
         </div>
