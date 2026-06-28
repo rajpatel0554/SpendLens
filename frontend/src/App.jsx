@@ -25,12 +25,12 @@ const AppContent = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-background text-on-background">
+    <div className="flex min-h-screen bg-background text-on-background" style={{ width: '100vw', overflowX: 'hidden' }}>
       {/* Sidebar Navigation */}
       {!isLoginPage && <Sidebar onOpenUpload={() => setIsUploadOpen(true)} />}
 
       {/* Main Panel */}
-      <div className={`flex-1 flex flex-col ${!isLoginPage ? 'md:ml-64 pb-20 md:pb-0' : ''}`}>
+      <div className={`flex-1 flex flex-col ${!isLoginPage ? 'md:ml-64 pb-20 md:pb-0' : ''}`} style={{ width: '100%' }}>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route

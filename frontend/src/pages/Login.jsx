@@ -34,12 +34,18 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-on-background flex items-center justify-center p-lg relative overflow-hidden">
+    <div 
+      className="min-h-screen bg-background text-on-background flex items-center justify-center p-lg relative overflow-hidden"
+      style={{ width: '100%', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+    >
       {/* Background Decorative Blurs */}
       <div className="absolute -left-20 -top-20 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
       <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-secondary/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-      <div className="w-full max-w-md glass-surface-elevated rounded-3xl p-lg z-10 flex flex-col gap-lg">
+      <div 
+        className="glass-surface-elevated rounded-3xl p-lg z-10 flex flex-col gap-lg"
+        style={{ width: '90vw', maxWidth: '400px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '24px', boxSizing: 'border-box' }}
+      >
         {/* Brand Header */}
         <div className="flex flex-col items-center text-center">
           <div className="w-12 h-12 bg-primary-container rounded-2xl flex items-center justify-center text-on-primary-container mb-4">
