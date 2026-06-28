@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { login, register } = useAuth();
   const navigate = useNavigate();
@@ -34,145 +35,185 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-on-background lg:grid lg:grid-cols-12 relative overflow-hidden" style={{ width: '100%', minHeight: '100vh' }}>
-      {/* Left side (Hero Image Showcase) - 7 cols on desktop */}
-      <div className="hidden lg:block lg:col-span-7 relative h-screen overflow-hidden">
+    <div className="min-h-screen bg-[#031427] text-on-surface grid grid-cols-1 md:grid-cols-2 overflow-hidden" style={{ width: '100%', minHeight: '100vh' }}>
+      {/* Left side (Hero Image Showcase) - 50% width on desktop */}
+      <div className="relative hidden md:block h-full w-full overflow-hidden">
         <img 
           src="/login_hero.png" 
-          alt="Wealth Intelligence" 
+          alt="Wealth Management Visualization" 
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Dark Glass Overlay with Branding Text */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-tr from-background via-background/60 to-transparent p-xl z-10" 
-          style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', boxSizing: 'border-box' }}
-        >
-          <div 
-            className="glass-surface p-lg rounded-3xl border border-white/10 backdrop-blur-md mb-8"
-            style={{ width: '90%', maxWidth: '448px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '16px', boxSizing: 'border-box' }}
-          >
-            <span className="font-label-md px-sm py-xs bg-primary-container/20 text-primary rounded-lg uppercase tracking-wider">
-              AI Wealth Management
-            </span>
-            <h1 className="font-display-lg text-[36px] font-black text-on-surface mt-4 leading-tight">
-              Personal Finance Intelligence
-            </h1>
-            <p className="font-body-md text-on-surface-variant mt-2 text-lg">
-              Analyze bank statements, track category budgets, and detect transaction anomalies in real-time with state-of-the-art ML modeling.
-            </p>
-          </div>
-        </div>
       </div>
 
-      {/* Right side (Form) - 5 cols on desktop */}
-      <div className="col-span-12 lg:col-span-5 flex items-center justify-center p-lg relative min-h-screen z-10">
-        {/* Background Decorative Blurs for mobile */}
-        <div className="absolute -left-20 -top-20 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none lg:hidden"></div>
-        <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-secondary/10 rounded-full blur-[100px] pointer-events-none lg:hidden"></div>
+      {/* Right side (Form) - 50% width on desktop */}
+      <div className="flex flex-col items-center justify-center p-xl relative min-h-screen z-10">
+        {/* Background Decorative Blur */}
+        <div className="fixed top-0 right-0 w-[400px] h-[300px] bg-primary/10 blur-[120px] pointer-events-none -z-10"></div>
 
-        <div 
-          className="glass-surface-elevated rounded-3xl p-lg flex flex-col gap-lg relative"
-          style={{ width: '90vw', maxWidth: '400px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '24px', boxSizing: 'border-box' }}
-        >
+        <main className="w-full max-w-[480px] z-10 flex flex-col gap-lg">
           {/* Brand Header */}
-          <div className="flex flex-col items-center text-center">
-            <div className="w-12 h-12 bg-primary-container rounded-2xl flex items-center justify-center text-on-primary-container mb-4">
-              <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
-                account_balance_wallet
-              </span>
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-sm mb-xs">
+              <div className="w-12 h-12 bg-primary-container rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+                <span className="material-symbols-outlined text-on-primary-container text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+                  account_balance_wallet
+                </span>
+              </div>
+              <h1 className="font-display-lg text-[32px] font-bold tracking-tight text-on-surface">SpendLens</h1>
             </div>
-            <h2 className="font-headline-lg text-headline-lg font-black text-primary">SpendLens</h2>
-            <p className="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mt-1">Wealth Management</p>
+            <p className="font-body-md text-body-md text-on-surface-variant mt-1">Organized Wealth Management</p>
           </div>
 
-          <div className="flex flex-col text-center">
-            <h3 className="font-headline-md text-headline-md text-on-surface">
-              {isSignUp ? 'Create Account' : 'Welcome Back'}
-            </h3>
-            <p className="font-body-md text-body-md text-on-surface-variant mt-1">
-              {isSignUp ? 'Sign up to start tracking your wealth' : 'Sign in to access your dashboard'}
-            </p>
-          </div>
-
-          {error && (
-            <div className="bg-error-container/20 border border-error/40 text-error rounded-xl p-md text-label-md flex items-center gap-2">
-              <span className="material-symbols-outlined text-sm">warning</span>
-              <span>{error}</span>
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="flex flex-col gap-md">
-            {isSignUp && (
-              <div className="flex flex-col gap-xs">
-                <label className="font-label-md text-on-surface-variant">Full Name</label>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none w-full transition-all"
-                  placeholder="John Doe"
-                />
+          {/* Glass Panel Form Container */}
+          <div 
+            className="rounded-3xl p-xl shadow-2xl"
+            style={{
+              background: 'rgba(255, 255, 255, 0.03)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255, 255, 255, 0.08)'
+            }}
+          >
+            {error && (
+              <div className="bg-error-container/20 border border-error/40 text-error rounded-xl p-md text-label-md flex items-center gap-2 mb-6">
+                <span className="material-symbols-outlined text-sm">warning</span>
+                <span>{error}</span>
               </div>
             )}
 
-            <div className="flex flex-col gap-xs">
-              <label className="font-label-md text-on-surface-variant">Email Address</label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none w-full transition-all"
-                placeholder="you@example.com"
-              />
-            </div>
-
-            <div className="flex flex-col gap-xs">
-              <label className="font-label-md text-on-surface-variant">Password</label>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="bg-surface-container border border-outline-variant/30 rounded-xl px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary outline-none w-full transition-all"
-                placeholder="••••••••"
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-primary text-on-primary font-bold py-3.5 px-4 rounded-xl text-label-md hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-2 disabled:opacity-50"
-            >
-              {loading ? (
-                <div className="w-5 h-5 border-2 border-on-primary border-t-transparent rounded-full animate-spin"></div>
-              ) : (
-                <>
-                  <span className="material-symbols-outlined text-[20px]">
-                    {isSignUp ? 'person_add' : 'login'}
-                  </span>
-                  <span>{isSignUp ? 'Sign Up' : 'Sign In'}</span>
-                </>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-lg">
+              {isSignUp && (
+                <div className="flex flex-col gap-xs text-left w-full">
+                  <label className="font-label-md text-on-surface-variant px-1" htmlFor="name">Full Name</label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-on-surface-variant/70">
+                      <span className="material-symbols-outlined text-[20px]">person</span>
+                    </div>
+                    <input
+                      id="name"
+                      type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="block w-full pl-[48px] pr-4 py-3 bg-surface-container-low border border-outline-variant/30 rounded-xl text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all outline-none"
+                      placeholder="John Doe"
+                    />
+                  </div>
+                </div>
               )}
-            </button>
-          </form>
 
-          <div className="text-center mt-2">
-            <p className="font-body-md text-on-surface-variant">
-              {isSignUp ? 'Already have an account? ' : "Don't have an account? "}
+              <div className="flex flex-col gap-xs text-left w-full">
+                <label className="font-label-md text-on-surface-variant px-1" htmlFor="email">Email Address</label>
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-on-surface-variant/70">
+                    <span className="material-symbols-outlined text-[20px]">mail</span>
+                  </div>
+                  <input
+                    id="email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="block w-full pl-[48px] pr-4 py-3 bg-surface-container-low border border-outline-variant/30 rounded-xl text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all outline-none"
+                    placeholder="name@company.com"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-xs text-left w-full">
+                <div className="flex justify-between items-center px-1">
+                  <label className="font-label-md text-on-surface-variant" htmlFor="password">Password</label>
+                  <a className="font-label-sm text-primary hover:text-primary-fixed-dim transition-colors text-xs" href="#">Forgot Password?</a>
+                </div>
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-on-surface-variant/70">
+                    <span className="material-symbols-outlined text-[20px]">lock</span>
+                  </div>
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="block w-full pl-[48px] pr-12 py-3 bg-surface-container-low border border-outline-variant/30 rounded-xl text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all outline-none"
+                    placeholder="••••••••"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-on-surface-variant/70 hover:text-on-surface transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-[20px]">
+                      {showPassword ? "visibility_off" : "visibility"}
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-4 bg-primary text-on-primary font-headline-md text-headline-md rounded-xl hover:bg-primary-container active:scale-[0.98] transition-all shadow-lg shadow-primary/25 font-bold flex items-center justify-center gap-2 mt-2 disabled:opacity-50"
+              >
+                {loading ? (
+                  <div className="w-5 h-5 border-2 border-on-primary border-t-transparent rounded-full animate-spin"></div>
+                ) : (
+                  <span>{isSignUp ? 'Sign Up' : 'Sign In'}</span>
+                )}
+              </button>
+
+              <div className="relative flex items-center py-2">
+                <div className="flex-grow border-t border-outline-variant/20"></div>
+                <span className="flex-shrink mx-4 text-outline font-label-sm text-[11px] text-on-surface-variant/50 uppercase tracking-wider">Or continue with</span>
+                <div className="flex-grow border-t border-outline-variant/20"></div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <button className="flex items-center justify-center gap-2 py-3 px-4 glass-surface rounded-xl hover:bg-surface-container-high transition-colors text-on-surface active:scale-[0.98] border border-white/10" type="button">
+                  <img className="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC46IcYf-t84tV2_Hp-C-3H7Vk3biAn9hnUsNbPBUk2lPWFmZfqOAlNH2eAeYERjwM3wtgSF1aACFOJ4KoJvgT4DUG-0ndLRb4vE_TDwnLbOI77Uou0eHsAzyLV57f4rPVuUuw6ZX9wVWfT19x1mCf-hNXf-_C-EcuOCcrs_NiEm6hmA1frKxwwBJl_dV5jF9bTjIZgemqkFcC1tiK4QD7o9EwPDNJJ3piEla5i5n2_B2dWDXbTGYqHgKP9rD-cTF-xWG_ESDnLUkM" alt="Google" />
+                  <span className="font-label-md text-sm">Google</span>
+                </button>
+                <button className="flex items-center justify-center gap-2 py-3 px-4 glass-surface rounded-xl hover:bg-surface-container-high transition-colors text-on-surface active:scale-[0.98] border border-white/10" type="button">
+                  <img className="w-5 h-5 invert dark:invert-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0riOtuaXZPJ0tI6NUMt298EH9x1oStZ-Uw8n650510hxwIlteK0_t3ed5oeWR8sv1NZ8UmGMVcwpBG02PdKlDzwwHQ_L4Arv5QZyje2CU0KTkEX1WinqCrVSSvtoD1rTpgQxSYh-hjl6tX4Y_I5DQTqFpkiEGOb0SDTLo9RQQW-tgjHpUuIsj-7QcW2vD0snr0hxB2_H1U7fgp_hJxe0-cHgJwyDtb_ebCbPspyd6qZwqWh3TgaPybFcMi-j3zGaCRexZfObDQPw" alt="Apple" />
+                  <span className="font-label-md text-sm">Apple</span>
+                </button>
+              </div>
+            </form>
+
+            <p className="mt-6 text-center font-body-md text-on-surface-variant text-sm">
+              {isSignUp ? 'Already have an account? ' : 'New to SpendLens? '}
               <button
                 type="button"
                 onClick={() => {
                   setIsSignUp(!isSignUp);
                   setError('');
                 }}
-                className="text-primary font-bold hover:underline"
+                className="text-primary font-bold hover:underline ml-1"
               >
-                {isSignUp ? 'Sign In' : 'Sign Up'}
+                {isSignUp ? 'Sign In' : 'Create an account'}
               </button>
             </p>
           </div>
+
+          {/* Bottom security badges */}
+          <div className="mt-8 flex items-center justify-center gap-4 opacity-40 text-xs">
+            <div className="flex items-center gap-1">
+              <span className="material-symbols-outlined text-[16px]">verified_user</span>
+              <span className="font-label-sm uppercase tracking-widest text-[10px]">Bank-Level Security</span>
+            </div>
+            <div className="w-1 h-1 bg-outline rounded-full"></div>
+            <div className="flex items-center gap-1">
+              <span className="material-symbols-outlined text-[16px]">lock_reset</span>
+              <span className="font-label-sm uppercase tracking-widest text-[10px]">256-bit AES</span>
+            </div>
+          </div>
+        </main>
+
+        {/* Bottom links */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-8 text-on-surface-variant/40 font-label-sm text-xs transition-opacity hover:opacity-100">
+          <a className="hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+          <a className="hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+          <a className="hover:text-on-surface transition-colors" href="#">Help Center</a>
         </div>
       </div>
     </div>
