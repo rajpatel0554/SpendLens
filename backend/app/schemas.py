@@ -79,3 +79,7 @@ class AnalyticsSummary(BaseModel):
     savings_potential: float
     category_progress: List[CategorySpend]
     monthly_trends: List[MonthlyTrend]
+    total_income: float
+    net_savings: float
+    savings_rate: float
+    recent_transactions: List[TransactionOut]

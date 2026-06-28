@@ -26,7 +26,11 @@ def get_analytics_summary(
         anomalies_flagged=0,
         savings_potential=0.0,
         category_progress=[],
-        monthly_trends=[]
+        monthly_trends=[],
+        total_income=0.0,
+        net_savings=0.0,
+        savings_rate=0.0,
+        recent_transactions=[]
     )
     
     if not txs:
@@ -46,6 +50,10 @@ def get_analytics_summary(
         })
         
     df = pd.DataFrame(data)
+    
+    # Calculate total income (amount > 0)
+    df_income = df[df["amount"] > 0]
+    total_income = float(df_income["amount"].sum()) if not df_income.empty else 0.0
     
     # Filter for expenses only (amount < 0) for spend analytics
     df_expenses = df[df["amount"] < 0].copy()
@@ -128,13 +136,24 @@ def get_analytics_summary(
         # Default savings target is 15% of monthly average spend
         savings_potential = round(total_spent * 0.15, 2)
         
+    net_savings = total_income - total_spent
+    savings_rate = (net_savings / total_income) * 100 if total_income > 0 else 0.0
+    
+    recent_txs = db.query(Transaction).filter(
+        Transaction.user_id == current_user.id
+    ).order_by(Transaction.date.desc()).limit(5).all()
+        
     return AnalyticsSummary(
         total_spent=round(total_spent, 2),
         largest_category=largest_category,
         anomalies_flagged=anomalies_flagged,
         savings_potential=round(savings_potential, 2),
         category_progress=category_progress,
-        monthly_trends=monthly_trends
+        monthly_trends=monthly_trends,
+        total_income=round(total_income, 2),
+        net_savings=round(net_savings, 2),
+        savings_rate=round(savings_rate, 2),
+        recent_transactions=recent_txs
     )
 
 @router.get("/anomalies", response_model=List[TransactionOut])

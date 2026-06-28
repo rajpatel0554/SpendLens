@@ -47,7 +47,7 @@ const Dashboard = ({ uploadTrigger }) => {
   const pieData = data.category_progress
     ? data.category_progress.map((item) => ({
         name: item.category,
-        value: item.spent
+        value: item.amount
       }))
     : [];
 
