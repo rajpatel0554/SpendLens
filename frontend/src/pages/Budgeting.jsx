@@ -122,7 +122,10 @@ const Budgeting = ({ uploadTrigger }) => {
         {/* Goal Tracker (4 cols) */}
         {(() => {
           const netSavings = data.net_savings || 0;
-          const percent = targetSavings > 0 ? Math.min(Math.round((netSavings / targetSavings) * 100), 100) : 0;
+          const isDeficit = netSavings < 0;
+          const percent = targetSavings > 0 
+            ? (isDeficit ? 0 : Math.min(Math.round((netSavings / targetSavings) * 100), 100)) 
+            : 0;
           return (
             <div className="col-span-12 lg:col-span-4 glass-card rounded-xl p-lg flex flex-col justify-between relative overflow-hidden">
               <div className="relative z-10">
@@ -172,7 +175,7 @@ const Budgeting = ({ uploadTrigger }) => {
                 <div className="relative w-40 h-40">
                   <svg className="w-full h-full rotate-[-90deg]">
                     <circle className="text-surface-container-highest" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
-                    <circle className="text-primary ring-progress" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" strokeLinecap="round" strokeWidth="12" style={{ '--percent': Math.max(0, percent) }}></circle>
+                    <circle className="text-primary ring-progress" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" strokeLinecap="round" strokeWidth="12" style={{ '--percent': percent }}></circle>
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <span className="font-headline-lg text-primary">{percent}%</span>
@@ -183,7 +186,9 @@ const Budgeting = ({ uploadTrigger }) => {
               <div className="relative z-10 flex justify-between items-center">
                 <div>
                   <p className="font-mono-data text-headline-md text-on-surface">₹{netSavings.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
-                  <p className="font-label-sm text-secondary">Active Savings</p>
+                  <p className={`font-label-sm ${isDeficit ? 'text-tertiary font-semibold' : 'text-secondary'}`}>
+                    {isDeficit ? 'Net Deficit' : 'Active Savings'}
+                  </p>
                 </div>
               </div>
             </div>
