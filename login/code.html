@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SpendLens | Organized Wealth Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Geist:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .bg-mesh {
+            background-color: #031427;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(192, 193, 255, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(78, 222, 163, 0.03) 0px, transparent 50%);
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#031427",
+                        "surface-container-highest": "#26364a",
+                        "surface-container-high": "#1b2b3f",
+                        "on-error-container": "#ffdad6",
+                        "inverse-on-surface": "#213145",
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "background": "#031427",
+                        "secondary": "#4edea3",
+                        "on-secondary-container": "#00311f",
+                        "secondary-container": "#00a572",
+                        "surface-bright": "#2a3a4f",
+                        "surface-container": "#102034",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface-container-lowest": "#000f21",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-variant": "#26364a",
+                        "on-primary-fixed": "#07006c",
+                        "outline-variant": "#464554",
+                        "on-secondary-fixed": "#002113",
+                        "surface": "#031427",
+                        "secondary-fixed": "#6ffbbe",
+                        "tertiary-container": "#ff516a",
+                        "tertiary": "#ffb2b7",
+                        "outline": "#908fa0",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-tint": "#c0c1ff",
+                        "on-tertiary-fixed-variant": "#92002a",
+                        "on-secondary": "#003824",
+                        "on-background": "#d3e4fe",
+                        "tertiary-fixed-dim": "#ffb2b7",
+                        "on-error": "#690005",
+                        "on-surface-variant": "#c7c4d7",
+                        "primary-container": "#8083ff",
+                        "surface-container-low": "#0b1c30",
+                        "on-tertiary": "#67001b",
+                        "on-primary-container": "#0d0096",
+                        "inverse-surface": "#d3e4fe",
+                        "on-surface": "#d3e4fe",
+                        "error": "#ffb4ab",
+                        "on-primary": "#1000a9",
+                        "inverse-primary": "#494bd6",
+                        "primary": "#c0c1ff",
+                        "tertiary-fixed": "#ffdadb",
+                        "on-tertiary-fixed": "#40000d",
+                        "on-tertiary-container": "#5b0017",
+                        "on-primary-fixed-variant": "#2f2ebe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "md": "16px",
+                        "gutter": "24px",
+                        "sm": "8px",
+                        "container-max": "1280px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "xl": "40px"
+                    },
+                    "fontFamily": {
+                        "mono-data": ["Geist"],
+                        "label-md": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "mono-data": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-mesh min-h-screen grid grid-cols-1 md:grid-cols-2 text-on-surface"><div class="relative hidden md:block h-full w-full overflow-hidden"><img alt="Wealth Management Visualization" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1-nadnXFW4X_T54xuUCHpT5x_TRQl_bAW8qhbEqPiQ4gBpDCh7I7C-QJh9v_KM53GNsc8OH93ps1Cb0MBJk_Ik4GYuBU4K9QFGWqFEaC7uXJCvvvHQSVXurLM0i0hBvG2xKWMHxJUFymoI1X7eUXPIBEsAW_Jzt3H-3vWf67zXTq75kWuG7lN53ztgQDDS0mIPTFvYQma6Q_mMN8HeEVc84xbP1wAx3-JCOexrqzUltinuSquFb3fZ2QNZOD0YM3eFdAZEDl8Scg"/></div><div class="flex flex-col items-center justify-center p-xl relative min-h-screen"><div class="fixed top-0 right-0 w-[400px] h-[300px] bg-primary/10 blur-[120px] pointer-events-none -z-10"></div><main class="w-full max-w-[480px] z-10 animate-float"><div class="text-center mb-xl"><div class="flex items-center justify-center gap-sm mb-xs"><div class="w-12 h-12 bg-primary-container rounded-xl flex items-center justify-center shadow-lg shadow-primary/20"><span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span></div><h1 class="font-display-lg text-display-lg tracking-tight text-on-surface">SpendLens</h1></div><p class="font-body-md text-body-md text-on-surface-variant">Organized Wealth Management</p></div><div class="glass-panel rounded-3xl p-xl shadow-2xl"><form class="space-y-lg"><div class="space-y-xs"><label class="font-label-md text-label-md text-on-surface-variant px-1" for="email">Email Address</label><div class="relative group"><div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none text-outline"><span class="material-symbols-outlined text-[20px]">mail</span></div><input class="block w-full pl-[48px] pr-md py-3 bg-surface-container-low border border-outline-variant/30 rounded-xl text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all outline-none" id="email" name="email" placeholder="name@company.com" required="" type="email"/></div></div><div class="space-y-xs"><div class="flex justify-between items-center px-1"><label class="font-label-md text-label-md text-on-surface-variant" for="password">Password</label><a class="font-label-sm text-label-sm text-primary hover:text-primary-fixed-dim transition-colors" href="#">Forgot Password?</a></div><div class="relative group"><div class="absolute inset-y-0 left-0 pl-md flex items-center pointer-events-none text-outline"><span class="material-symbols-outlined text-[20px]">lock</span></div><input class="block w-full pl-[48px] pr-md py-3 bg-surface-container-low border border-outline-variant/30 rounded-xl text-on-surface placeholder:text-outline/50 focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all outline-none" id="password" name="password" placeholder="••••••••" required="" type="password"/><button class="absolute inset-y-0 right-0 pr-md flex items-center text-outline hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">visibility</span></button></div></div><button class="w-full py-4 bg-primary text-on-primary font-headline-md text-headline-md rounded-xl hover:bg-primary-container active:scale-[0.98] transition-all shadow-lg shadow-primary/25" type="submit">Sign In</button><div class="relative flex items-center py-sm"><div class="flex-grow border-t border-outline-variant/20"></div><span class="flex-shrink mx-4 text-outline font-label-sm text-label-sm">Or continue with</span><div class="flex-grow border-t border-outline-variant/20"></div></div><div class="grid grid-cols-2 gap-md"><button class="flex items-center justify-center gap-sm py-3 px-md glass-panel rounded-xl hover:bg-surface-container-high transition-colors text-on-surface active:scale-[0.98]" type="button"><img class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC46IcYf-t84tV2_Hp-C-3H7Vk3biAn9hnUsNbPBUk2lPWFmZfqOAlNH2eAeYERjwM3wtgSF1aACFOJ4KoJvgT4DUG-0ndLRb4vE_TDwnLbOI77Uou0eHsAzyLV57f4rPVuUuw6ZX9wVWfT19x1mCf-hNXf-_C-EcuOCcrs_NiEm6hmA1frKxwwBJl_dV5jF9bTjIZgemqkFcC1tiK4QD7o9EwPDNJJ3piEla5i5n2_B2dWDXbTGYqHgKP9rD-cTF-xWG_ESDnLUkM"/><span class="font-label-md text-label-md">Google</span></button><button class="flex items-center justify-center gap-sm py-3 px-md glass-panel rounded-xl hover:bg-surface-container-high transition-colors text-on-surface active:scale-[0.98]" type="button"><img class="w-5 h-5 invert dark:invert-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0riOtuaXZPJ0tI6NUMt298EH9x1oStZ-Uw8n650510hxwIlteK0_t3ed5oeWR8sv1NZ8UmGMVcwpBG02PdKlDzwwHQ_L4Arv5QZyje2CU0KTkEX1WinqCrVSSvtoD1rTpgQxSYh-hjl6tX4Y_I5DQTqFpkiEGOb0SDTLo9RQQW-tgjHpUuIsj-7QcW2vD0snr0hxB2_H1U7fgp_hJxe0-cHgJwyDtb_ebCbPspyd6qZwqWh3TgaPybFcMi-j3zGaCRexZfObDQPw"/><span class="font-label-md text-label-md">Apple</span></button></div></form><p class="mt-xl text-center font-body-md text-body-md text-on-surface-variant">New to SpendLens? <a class="text-primary font-bold hover:underline ml-1" href="#">Create an account</a></p></div><div class="mt-xl flex items-center justify-center gap-md opacity-40"><div class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">verified_user</span><span class="font-label-sm text-label-sm uppercase tracking-widest">Bank-Level Security</span></div><div class="w-1 h-1 bg-outline rounded-full"></div><div class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">lock_reset</span><span class="font-label-sm text-label-sm uppercase tracking-widest">256-bit AES</span></div></div></main><div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-xl text-outline-variant font-label-sm text-label-sm transition-opacity hover:opacity-100"><a class="hover:text-on-surface transition-colors" href="#">Privacy Policy</a><a class="hover:text-on-surface transition-colors" href="#">Terms of Service</a><a class="hover:text-on-surface transition-colors" href="#">Help Center</a></div></div></body></html>
