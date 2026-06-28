@@ -23,7 +23,10 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
             break
             
     # Look for Description column
-    desc_candidates = ["description", "narration", "particulars", "remarks", "details", "txn_description"]
+    desc_candidates = [
+        "description", "narration", "particulars", "remarks", "details", 
+        "txn_description", "transaction description", "transaction_description", "txn description"
+    ]
     for cand in desc_candidates:
         if cand in df.columns:
             col_mapping[cand] = "description"
