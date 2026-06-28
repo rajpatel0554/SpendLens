@@ -61,8 +61,14 @@ const UploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-lg bg-background/80 backdrop-blur-sm">
-      <div className="w-[90vw] max-w-md glass-surface-elevated rounded-3xl p-lg flex flex-col gap-md relative shrink-0">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-lg bg-background/80 backdrop-blur-sm"
+      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, zIndex: 9999, backgroundColor: 'rgba(3, 20, 39, 0.8)' }}
+    >
+      <div 
+        className="glass-surface-elevated rounded-3xl p-lg flex flex-col gap-md relative"
+        style={{ width: '90vw', maxWidth: '448px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '16px', boxSizing: 'border-box' }}
+      >
         {/* Close Button */}
         <button
           onClick={onClose}
