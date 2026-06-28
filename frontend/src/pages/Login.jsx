@@ -162,22 +162,6 @@ const Login = () => {
                 )}
               </button>
 
-              <div className="relative flex items-center py-2">
-                <div className="flex-grow border-t border-outline-variant/20"></div>
-                <span className="flex-shrink mx-4 text-outline font-label-sm text-[11px] text-on-surface-variant/50 uppercase tracking-wider">Or continue with</span>
-                <div className="flex-grow border-t border-outline-variant/20"></div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <button className="flex items-center justify-center gap-2 py-3 px-4 glass-surface rounded-xl hover:bg-surface-container-high transition-colors text-on-surface active:scale-[0.98] border border-white/10" type="button">
-                  <img className="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC46IcYf-t84tV2_Hp-C-3H7Vk3biAn9hnUsNbPBUk2lPWFmZfqOAlNH2eAeYERjwM3wtgSF1aACFOJ4KoJvgT4DUG-0ndLRb4vE_TDwnLbOI77Uou0eHsAzyLV57f4rPVuUuw6ZX9wVWfT19x1mCf-hNXf-_C-EcuOCcrs_NiEm6hmA1frKxwwBJl_dV5jF9bTjIZgemqkFcC1tiK4QD7o9EwPDNJJ3piEla5i5n2_B2dWDXbTGYqHgKP9rD-cTF-xWG_ESDnLUkM" alt="Google" />
-                  <span className="font-label-md text-sm">Google</span>
-                </button>
-                <button className="flex items-center justify-center gap-2 py-3 px-4 glass-surface rounded-xl hover:bg-surface-container-high transition-colors text-on-surface active:scale-[0.98] border border-white/10" type="button">
-                  <img className="w-5 h-5 invert dark:invert-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0riOtuaXZPJ0tI6NUMt298EH9x1oStZ-Uw8n650510hxwIlteK0_t3ed5oeWR8sv1NZ8UmGMVcwpBG02PdKlDzwwHQ_L4Arv5QZyje2CU0KTkEX1WinqCrVSSvtoD1rTpgQxSYh-hjl6tX4Y_I5DQTqFpkiEGOb0SDTLo9RQQW-tgjHpUuIsj-7QcW2vD0snr0hxB2_H1U7fgp_hJxe0-cHgJwyDtb_ebCbPspyd6qZwqWh3TgaPybFcMi-j3zGaCRexZfObDQPw" alt="Apple" />
-                  <span className="font-label-md text-sm">Apple</span>
-                </button>
-              </div>
             </form>
 
             <p className="mt-6 text-center font-body-md text-on-surface-variant text-sm">
