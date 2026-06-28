@@ -167,8 +167,8 @@ const Reports = ({ uploadTrigger }) => {
 
       {/* Main Analytics Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
-        {/* Monthly Cash Flow Bar Chart */}
-        <div className="lg:col-span-8 glass-card p-lg rounded-3xl flex flex-col min-h-[380px]">
+        {/* Monthly Cash Flow Bar Chart - Expanded to full width */}
+        <div className="lg:col-span-12 glass-card p-lg rounded-3xl flex flex-col min-h-[420px]">
           <div className="flex items-center justify-between mb-8">
             <div>
               <h4 className="font-headline-md text-headline-md font-bold text-on-surface">Monthly Cash Flow</h4>
@@ -204,46 +204,6 @@ const Reports = ({ uploadTrigger }) => {
               </BarChart>
             </ResponsiveContainer>
           </div>
-        </div>
-
-        {/* Tax Preparation Widget */}
-        <div className="lg:col-span-4 glass-card p-lg rounded-3xl flex flex-col justify-between relative overflow-hidden">
-          <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 bg-on-surface-variant/10 text-primary rounded-xl">
-                <span className="material-symbols-outlined">assignment_turned_in</span>
-              </div>
-              <h4 className="font-headline-md text-headline-md font-bold text-on-surface">Tax Readiness</h4>
-            </div>
-            <p className="text-body-md font-body-md text-on-surface-variant mb-6">
-              Your financial records are organized and ready for the fiscal year export.
-            </p>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-3 bg-surface-container rounded-xl border border-outline-variant/10">
-                <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-primary">description</span>
-                  <span className="text-label-md font-label-md text-on-surface">W-2/1099 Summary</span>
-                </div>
-                <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">
-                  download
-                </span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-surface-container rounded-xl border border-outline-variant/10">
-                <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-primary">receipt</span>
-                  <span className="text-label-md font-label-md text-on-surface">Deductible Expenses</span>
-                </div>
-                <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">
-                  download
-                </span>
-              </div>
-            </div>
-          </div>
-          <button className="mt-8 w-full border border-primary text-primary py-3 px-4 rounded-xl font-bold text-label-md flex items-center justify-center gap-2 hover:bg-primary/10 transition-all active:scale-95">
-            <span className="material-symbols-outlined text-[20px]">ios_share</span>
-            Export Tax Documents
-          </button>
         </div>
       </div>
     </div>
