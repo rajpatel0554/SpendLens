@@ -76,18 +76,18 @@ const Dashboard = ({ uploadTrigger }) => {
             <div>
               <p className="font-label-md text-label-md text-on-surface-variant mb-2">Net Cashflow Savings</p>
               <h3 className="font-display-lg text-display-lg text-on-surface">
-                ${(data.net_savings || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                ₹{(data.net_savings || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </h3>
               <div className="flex items-center gap-2 mt-4 text-secondary">
                 <span className="material-symbols-outlined text-sm">trending_up</span>
                 <span className="font-label-md">
-                  +${(data.total_income || 0).toLocaleString()} Total Income
+                  +₹{(data.total_income || 0).toLocaleString()} Total Income
                 </span>
               </div>
             </div>
             <div className="flex gap-2">
               <span className="bg-primary/10 text-primary px-4 py-1 rounded-full text-xs font-bold">
-                Spent: ${(data.total_spent || 0).toLocaleString()}
+                Spent: ₹{(data.total_spent || 0).toLocaleString()}
               </span>
             </div>
           </div>
@@ -168,7 +168,7 @@ const Dashboard = ({ uploadTrigger }) => {
               </ResponsiveContainer>
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                 <p className="text-[10px] text-on-surface-variant uppercase tracking-tighter">Total Spent</p>
-                <p className="font-headline-md text-on-surface">${totalSpentPie.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                <p className="font-headline-md text-on-surface">₹{totalSpentPie.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
               </div>
             </div>
 
@@ -224,7 +224,7 @@ const Dashboard = ({ uploadTrigger }) => {
                         tx.amount < 0 ? 'text-error' : 'text-secondary'
                       }`}
                     >
-                      {tx.amount < 0 ? '-' : '+'}${Math.abs(tx.amount).toFixed(2)}
+                      {tx.amount < 0 ? '-' : '+'}₹{Math.abs(tx.amount).toFixed(2)}
                     </p>
                     <p className="text-[10px] text-on-surface-variant uppercase tracking-wider">
                       {tx.channel || 'Cleared'}

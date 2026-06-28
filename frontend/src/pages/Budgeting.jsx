@@ -124,7 +124,7 @@ const Budgeting = ({ uploadTrigger }) => {
                 <h3 className="font-headline-md text-on-surface">Savings Fund</h3>
                 {isEditing ? (
                   <div className="flex items-center gap-xs mt-xs">
-                    <span className="text-on-surface-variant text-sm">Target: $</span>
+                    <span className="text-on-surface-variant text-sm">Target: ₹</span>
                     <input
                       type="number"
                       value={inputVal}
@@ -154,7 +154,7 @@ const Budgeting = ({ uploadTrigger }) => {
                     onClick={() => setIsEditing(true)}
                     className="font-body-md text-on-surface-variant mt-xs cursor-pointer hover:text-primary transition-colors flex items-center gap-xs"
                   >
-                    Target: ${targetSavings.toLocaleString()}
+                    Target: ₹{targetSavings.toLocaleString()}
                     <span className="material-symbols-outlined text-xs">edit</span>
                   </p>
                 )}
@@ -173,7 +173,7 @@ const Budgeting = ({ uploadTrigger }) => {
               </div>
               <div className="relative z-10 flex justify-between items-center">
                 <div>
-                  <p className="font-mono-data text-headline-md text-on-surface">${netSavings.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                  <p className="font-mono-data text-headline-md text-on-surface">₹{netSavings.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
                   <p className="font-label-sm text-secondary">Active Savings</p>
                 </div>
               </div>
@@ -226,7 +226,7 @@ const Budgeting = ({ uploadTrigger }) => {
                   <div className="text-center">
                     <p className="font-label-md text-on-surface truncate max-w-[120px]">{item.category}</p>
                     <p className="font-mono-data text-label-sm text-on-surface-variant">
-                      ${item.spent.toFixed(0)} / ${item.limit.toFixed(0)}
+                      ₹{item.spent.toFixed(0)} / ₹{item.limit.toFixed(0)}
                     </p>
                   </div>
                 </div>

@@ -196,7 +196,7 @@ const Transactions = ({ uploadTrigger }) => {
                           tx.amount < 0 ? 'text-error' : 'text-secondary'
                         }`}
                       >
-                        {tx.amount < 0 ? '-' : '+'}${Math.abs(tx.amount).toFixed(2)}
+                        {tx.amount < 0 ? '-' : '+'}₹{Math.abs(tx.amount).toFixed(2)}
                       </td>
                     </tr>
                   );

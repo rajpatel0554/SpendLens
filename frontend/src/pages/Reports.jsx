@@ -129,7 +129,7 @@ const Reports = ({ uploadTrigger }) => {
           <div>
             <p className="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Net Profit/Loss</p>
             <h4 className="font-display-lg text-display-lg font-bold text-on-surface mt-1">
-              ${(data.net_savings || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              ₹{(data.net_savings || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </h4>
           </div>
         </div>
