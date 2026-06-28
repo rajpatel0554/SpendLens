@@ -8,12 +8,15 @@ const Dashboard = ({ uploadTrigger }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
 
   useEffect(() => {
     const fetchSummary = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('/api/analytics/summary');
+        const res = await axios.get('/api/analytics/summary', {
+          params: { year: selectedYear || undefined }
+        });
         setData(res.data);
       } catch (err) {
         console.error(err);
@@ -23,7 +26,7 @@ const Dashboard = ({ uploadTrigger }) => {
       }
     };
     fetchSummary();
-  }, [uploadTrigger]);
+  }, [uploadTrigger, selectedYear]);
 
   if (loading) {
     return (
@@ -56,11 +59,30 @@ const Dashboard = ({ uploadTrigger }) => {
   return (
     <div className="p-lg max-w-container-max mx-auto">
       {/* Welcome Header */}
-      <section className="mb-xl">
-        <h2 className="font-headline-lg text-headline-lg text-primary mb-1">Financial Overview</h2>
-        <p className="font-body-md text-body-md text-on-surface-variant">
-          Your savings rate is <span className="text-secondary font-bold">{(data.savings_rate || 0).toFixed(1)}%</span> this period. Great job!
-        </p>
+      <section className="mb-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-md">
+        <div>
+          <h2 className="font-headline-lg text-headline-lg text-primary mb-1">Financial Overview</h2>
+          <p className="font-body-md text-body-md text-on-surface-variant">
+            Your savings rate is <span className="text-secondary font-bold">{(data.savings_rate || 0).toFixed(1)}%</span> this period. Great job!
+          </p>
+        </div>
+        
+        {/* Year Selector */}
+        {data.available_years && data.available_years.length > 0 && (
+          <div className="flex items-center gap-xs">
+            <span className="font-label-md text-on-surface-variant text-sm mr-2">Select Year:</span>
+            <select
+              value={selectedYear || data.available_years[0]}
+              onChange={(e) => setSelectedYear(e.target.value)}
+              className="bg-surface-container-high px-4 py-2 rounded-xl text-on-surface font-bold text-label-md border border-outline-variant/20 outline-none cursor-pointer focus:ring-1 focus:ring-primary"
+            >
+              <option value="all">All Time</option>
+              {data.available_years.map((y) => (
+                <option key={y} value={y}>{y}</option>
+              ))}
+            </select>
+          </div>
+        )}
       </section>
 
       {/* Bento Grid Layout */}

@@ -13,30 +13,14 @@ router = APIRouter(prefix="/api/analytics", tags=["Analytics"])
 
 @router.get("/summary", response_model=AnalyticsSummary)
 def get_analytics_summary(
+    year: Optional[str] = None,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     # Fetch all user transactions from DB
     txs = db.query(Transaction).filter(Transaction.user_id == current_user.id).all()
     
-    # Default empty values
-    default_summary = AnalyticsSummary(
-        total_spent=0.0,
-        largest_category="None",
-        anomalies_flagged=0,
-        savings_potential=0.0,
-        category_progress=[],
-        monthly_trends=[],
-        total_income=0.0,
-        net_savings=0.0,
-        savings_rate=0.0,
-        recent_transactions=[]
-    )
-    
-    if not txs:
-        return default_summary
-        
-    # Build DataFrame
+    # Build DataFrame to find available years first
     data = []
     anomalies_count = 0
     for t in txs:
@@ -51,15 +35,62 @@ def get_analytics_summary(
         
     df = pd.DataFrame(data)
     
+    available_years = []
+    if not df.empty:
+        available_years = sorted(list(df["date"].apply(lambda d: d[:4]).unique()), reverse=True)
+    
+    # Default empty values
+    default_summary = AnalyticsSummary(
+        total_spent=0.0,
+        largest_category="None",
+        anomalies_flagged=0,
+        savings_potential=0.0,
+        category_progress=[],
+        monthly_trends=[],
+        total_income=0.0,
+        net_savings=0.0,
+        savings_rate=0.0,
+        recent_transactions=[],
+        available_years=available_years
+    )
+    
+    if not txs:
+        return default_summary
+    
+    # Filter by year if specified, otherwise default to the most recent year
+    selected_year = year
+    if not selected_year:
+        selected_year = available_years[0] if available_years else "all"
+        
+    if selected_year != "all":
+        df_filtered = df[df["date"].str.startswith(selected_year)].copy()
+    else:
+        df_filtered = df.copy()
+    
     # Calculate total income (amount > 0)
-    df_income = df[df["amount"] > 0]
+    df_income = df_filtered[df_filtered["amount"] > 0]
     total_income = float(df_income["amount"].sum()) if not df_income.empty else 0.0
     
     # Filter for expenses only (amount < 0) for spend analytics
-    df_expenses = df[df["amount"] < 0].copy()
+    df_expenses = df_filtered[df_filtered["amount"] < 0].copy()
     
     if df_expenses.empty:
-        return default_summary
+        recent_txs = db.query(Transaction).filter(
+            Transaction.user_id == current_user.id
+        ).order_by(Transaction.date.desc()).limit(5).all()
+        return AnalyticsSummary(
+            total_spent=0.0,
+            largest_category="None",
+            anomalies_flagged=0,
+            savings_potential=0.0,
+            category_progress=[],
+            monthly_trends=[],
+            total_income=round(total_income, 2),
+            net_savings=round(total_income, 2),
+            savings_rate=100.0 if total_income > 0 else 0.0,
+            recent_transactions=recent_txs,
+            available_years=available_years
+        )
         
     df_expenses["abs_amount"] = df_expenses["amount"].abs()
     
@@ -87,14 +118,16 @@ def get_analytics_summary(
             )
         )
         
-    # 3. Monthly Trends (Income vs Expenses) - Limit to last 12 months
-    df["month"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m")
+    # 3. Monthly Trends (Income vs Expenses)
+    df_filtered["month"] = pd.to_datetime(df_filtered["date"]).dt.strftime("%Y-%m")
     
     monthly_trends = []
-    if not df.empty:
-        months = sorted(df["month"].unique())[-12:]
+    if not df_filtered.empty:
+        months = sorted(df_filtered["month"].unique())
+        if selected_year == "all":
+            months = months[-12:]  # Limit to last 12 months for "all" view
         for m in months:
-            df_m = df[df["month"] == m]
+            df_m = df_filtered[df_filtered["month"] == m]
             
             df_m_income = df_m[df_m["amount"] > 0]
             m_income = float(df_m_income["amount"].sum()) if not df_m_income.empty else 0.0
@@ -162,7 +195,8 @@ def get_analytics_summary(
         total_income=round(total_income, 2),
         net_savings=round(net_savings, 2),
         savings_rate=round(savings_rate, 2),
-        recent_transactions=recent_txs
+        recent_transactions=recent_txs,
+        available_years=available_years
     )
 
 @router.get("/anomalies", response_model=List[TransactionOut])

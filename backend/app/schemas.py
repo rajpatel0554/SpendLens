@@ -84,3 +84,4 @@ class AnalyticsSummary(BaseModel):
     net_savings: float
     savings_rate: float
     recent_transactions: List[TransactionOut]
+    available_years: List[str]

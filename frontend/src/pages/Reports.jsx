@@ -8,12 +8,15 @@ const Reports = ({ uploadTrigger }) => {
   const [error, setError] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('');
   const [downloading, setDownloading] = useState(false);
+  const [selectedYear, setSelectedYear] = useState('');
 
   useEffect(() => {
     const fetchSummary = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('/api/analytics/summary');
+        const res = await axios.get('/api/analytics/summary', {
+          params: { year: selectedYear || undefined }
+        });
         setData(res.data);
         if (res.data.monthly_trends && res.data.monthly_trends.length > 0) {
           // Default to the most recent month
@@ -27,7 +30,7 @@ const Reports = ({ uploadTrigger }) => {
       }
     };
     fetchSummary();
-  }, [uploadTrigger]);
+  }, [uploadTrigger, selectedYear]);
 
   const handleDownloadReport = async () => {
     if (!selectedMonth) return;
@@ -84,6 +87,21 @@ const Reports = ({ uploadTrigger }) => {
         </div>
 
         <div className="flex items-center gap-3">
+          {/* Year Selector */}
+          {data.available_years && data.available_years.length > 0 && (
+            <select
+              value={selectedYear || data.available_years[0]}
+              onChange={(e) => setSelectedYear(e.target.value)}
+              className="bg-surface-container-high px-4 py-2.5 rounded-xl text-on-surface font-bold text-label-md border border-outline-variant/20 outline-none cursor-pointer focus:ring-1 focus:ring-primary"
+            >
+              <option value="all">All Time</option>
+              {data.available_years.map((y) => (
+                <option key={y} value={y}>{y}</option>
+              ))}
+            </select>
+          )}
+
+          {/* Month Selector */}
           <select
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}

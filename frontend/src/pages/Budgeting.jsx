@@ -9,12 +9,15 @@ const Budgeting = ({ uploadTrigger }) => {
   const [targetSavings, setTargetSavings] = useState(50000);
   const [isEditing, setIsEditing] = useState(false);
   const [inputVal, setInputVal] = useState("50000");
+  const [selectedYear, setSelectedYear] = useState('');
 
   useEffect(() => {
     const fetchSummary = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('/api/analytics/summary');
+        const res = await axios.get('/api/analytics/summary', {
+          params: { year: selectedYear || undefined }
+        });
         setData(res.data);
       } catch (err) {
         console.error(err);
@@ -24,7 +27,7 @@ const Budgeting = ({ uploadTrigger }) => {
       }
     };
     fetchSummary();
-  }, [uploadTrigger]);
+  }, [uploadTrigger, selectedYear]);
 
   if (loading) {
     return (
@@ -47,11 +50,28 @@ const Budgeting = ({ uploadTrigger }) => {
   return (
     <div className="p-lg flex-1 overflow-y-auto max-w-container-max mx-auto w-full">
       {/* Page Header */}
-      <div className="flex justify-between items-end mb-lg">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-md mb-lg">
         <div>
           <h2 className="font-headline-lg text-headline-lg text-on-surface">Budget Analytics</h2>
           <p className="font-body-md text-on-surface-variant">Real-time overview of your financial performance.</p>
         </div>
+        
+        {/* Year Selector */}
+        {data.available_years && data.available_years.length > 0 && (
+          <div className="flex items-center gap-xs">
+            <span className="font-label-md text-on-surface-variant text-sm mr-2">Select Year:</span>
+            <select
+              value={selectedYear || data.available_years[0]}
+              onChange={(e) => setSelectedYear(e.target.value)}
+              className="bg-surface-container-high px-4 py-2.5 rounded-xl text-on-surface font-bold text-label-md border border-outline-variant/20 outline-none cursor-pointer focus:ring-1 focus:ring-primary"
+            >
+              <option value="all">All Time</option>
+              {data.available_years.map((y) => (
+                <option key={y} value={y}>{y}</option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
 
       {/* Bento Grid Layout */}
