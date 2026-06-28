@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 import pandas as pd
 from datetime import datetime
 
@@ -37,7 +37,7 @@ def get_analytics_summary(
     
     available_years = []
     if not df.empty:
-        available_years = sorted(list(df["date"].apply(lambda d: d[:4]).unique()), reverse=True)
+        available_years = sorted(list(df["date"].apply(lambda d: str(d.year) if hasattr(d, 'year') else str(d)[:4]).unique()), reverse=True)
     
     # Default empty values
     default_summary = AnalyticsSummary(
@@ -63,7 +63,7 @@ def get_analytics_summary(
         selected_year = available_years[0] if available_years else "all"
         
     if selected_year != "all":
-        df_filtered = df[df["date"].str.startswith(selected_year)].copy()
+        df_filtered = df[df["date"].apply(lambda d: str(d.year) if hasattr(d, 'year') else str(d)[:4]) == selected_year].copy()
     else:
         df_filtered = df.copy()
     
