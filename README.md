@@ -100,3 +100,13 @@ cd backend
 .\venv\Scripts\activate
 python -m unittest tests/test_api.py
 ```
+
+---
+
+## 👥 Team Members
+
+* **Rajkumar Patel**
+* **Sarthak Patel**
+* **Vaidehi Pandya**
+* **Manan Patel**
+* **Pratha Kasvala**
