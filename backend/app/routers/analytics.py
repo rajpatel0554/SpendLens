@@ -87,12 +87,12 @@ def get_analytics_summary(
             )
         )
         
-    # 3. Monthly Trends (Income vs Expenses)
+    # 3. Monthly Trends (Income vs Expenses) - Limit to last 12 months
     df["month"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m")
     
     monthly_trends = []
     if not df.empty:
-        months = sorted(df["month"].unique())
+        months = sorted(df["month"].unique())[-12:]
         for m in months:
             df_m = df[df["month"] == m]
             
